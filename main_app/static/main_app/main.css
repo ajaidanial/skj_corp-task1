@@ -1,0 +1,35 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.from_container {
+    position: relative;
+}
+
+.from_container>form {
+    border: 0px;
+    padding: 25px;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media only screen and (min-width: 600px) {
+    .from_container>form {
+        width: 500px;
+    }
+}
+
+.form-group>.error_messages {
+    color: #dc3545 !important;
+}
+
+.form-group>.error_messages>ul {
+    list-style: none;
+    padding: 0;
+}

@@ -7,18 +7,20 @@
     <title>SKJ Corp | Task1</title>
     <meta name="description" content="Test site for an internship.">
     <!-- CSS files -->
-    <link rel="stylesheet" type="text/css" href="{% static 'main_app/semantic.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main_app/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'main_app/main.css' %}">
 </head>
 
-<body>
+<body class="bg-light">
 
-    {% block main_content %}
-    {% endblock %}
+    <div class="container">
+        {% block main_content %}
+        {% endblock %}
+    </div>
 
     <!-- script files -->
     <script src="{% static 'main_app/jquery.min.js' %}"></script>
-    <script src="{% static 'main_app/semantic.min.js' %}"></script>
+    <script src="{% static 'main_app/bootstrap.min.js' %}"></script>
     <script src="{% static 'main_app/main.js' %}"></script>
 
 </body>

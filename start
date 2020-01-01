@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# the venv
+VENV=./venv/bin/activate
+
+# if venv does not exist => create it
+if [ ! -f "$VENV" ]; then
+  virtualenv -p python3 venv
+fi
+
+# activate venv and install the requirements
+source $VENV
+pip install -r requirements.txt
+
+# make and migrate the db
+python manage.py makemigrations
+python manage.py migrate
+
+# start the server
+python manage.py runserver

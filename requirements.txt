@@ -1,0 +1,9 @@
+django
+django-environ
+Werkzeug
+psycopg2
+black
+pylint-django
+django-debug-toolbar
+django-extensions
+pillow

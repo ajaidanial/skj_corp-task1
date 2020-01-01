@@ -168,3 +168,4 @@ fabric.properties
 # django other files
 media/
 venv/
+staticfiles/

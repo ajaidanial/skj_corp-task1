@@ -1,9 +1,10 @@
-from django.forms import ModelForm
+from django import forms
+from django.core.exceptions import ValidationError
 
 from main_app.models import BaseUser
 
 
-class LoginForm(ModelForm):
+class LoginForm(forms.ModelForm):
     """Form to login user."""
 
     class Meta:
@@ -18,8 +19,12 @@ class LoginForm(ModelForm):
         return self.cleaned_data
 
 
-class SignUpForm(ModelForm):
+class SignUpForm(forms.ModelForm):
     """Form to signup user."""
+
+    confirm_password = forms.CharField(max_length=128)
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=150)
 
     class Meta:
         model = BaseUser
@@ -29,4 +34,9 @@ class SignUpForm(ModelForm):
             "first_name",
             "last_name",
             "avatar",
+            "confirm_password",
         ]
+
+    def clean_confirm_password(self):
+        if self.cleaned_data['password'] != self.cleaned_data['confirm_password']:
+            raise ValidationError('Does not match your password.', code='invalid')

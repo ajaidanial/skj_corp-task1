@@ -94,3 +94,5 @@ ADMIN_USER = {
     "email": "admin@admin.com",
     "password": "admin",
 }
+LOGIN_URL = "/login/"
+HOME_URL = "/home/"

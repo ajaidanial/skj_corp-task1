@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.views.generic import FormView, TemplateView
 
+from main_app.actions import LoginAction
 from main_app.auth import LogoutRequiredMixin
 from main_app.forms import LoginForm, SignUpForm
 from main_app.models import BaseUser
@@ -15,12 +16,13 @@ class LoginView(LogoutRequiredMixin, FormView):
     model = BaseUser
     form_class = LoginForm
     template_name = "main_app/login.html"
-    success_url = "home/"
+    success_url = "."
 
-    def form_valid(self, form):
-        # TODO: login action
-        self.object = form.save()
-        return super().form_valid(form)
+    def post(self, request, *args, **kwargs):
+        success, output = LoginAction(self).execute()
+        if not success:
+            return self.form_invalid(output["form"])
+        return self.form_valid(output["form"])
 
 
 class SignUpView(LogoutRequiredMixin, FormView):
@@ -29,7 +31,7 @@ class SignUpView(LogoutRequiredMixin, FormView):
     model = BaseUser
     form_class = SignUpForm
     template_name = "main_app/signup.html"
-    success_url = "home/"
+    success_url = "."
 
     def form_valid(self, form):
         # TODO: signup action

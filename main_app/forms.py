@@ -13,6 +13,10 @@ class LoginForm(ModelForm):
             "password",
         ]
 
+    def clean(self):
+        self._validate_unique = False
+        return self.cleaned_data
+
 
 class SignUpForm(ModelForm):
     """Form to signup user."""

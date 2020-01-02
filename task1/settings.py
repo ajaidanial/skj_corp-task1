@@ -113,3 +113,14 @@ SENDER_MAIL_CREDENTIALS = {
         "EMAIL_VERIFICATION_LINK", "http://localhost:8000/verify"
     ),
 }
+
+# AWS Config
+# -----------------------------------------------------------------------
+if env.bool("USE_S3", False):
+    AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", None)
+    AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", None)
+    AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", None)
+    AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+    DEFAULT_FILE_STORAGE = "task1.aws.DefaultFileStorage"  # files and media
+    STATICFILES_STORAGE = "task1.aws.DefaultStaticStorage"  # static files
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, "static")

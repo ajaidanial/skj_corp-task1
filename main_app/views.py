@@ -50,19 +50,21 @@ class HomeView(LoginRequiredMixin, TemplateView):
 @require_http_methods(["GET"])
 def verify_email(request):
     """View to verify the emails address."""
-    if 'code' in request.GET and 'email' in request.GET:
-        code = request.GET['code']
-        email = request.GET['email']
+    if "code" in request.GET and "email" in request.GET:
+        code = request.GET["code"]
+        email = request.GET["email"]
         try:
             user = BaseUser.objects.get(username=email)
         except BaseUser.DoesNotExist:
-            return redirect(f'{settings.LOGIN_URL}?message=User does not exist.')
+            return redirect(f"{settings.LOGIN_URL}?message=User does not exist.")
         if user.verification_code == code:
             user.verification_code = None
             user.is_email_verified = True
             user.save()
-            return redirect(f'{settings.LOGIN_URL}?message=Email verified. Login to continue.')
-        return redirect(f'{settings.LOGIN_URL}?message=Invalid verification code.')
+            return redirect(
+                f"{settings.LOGIN_URL}?message=Email verified. Login to continue."
+            )
+        return redirect(f"{settings.LOGIN_URL}?message=Invalid verification code.")
     return redirect(settings.LOGIN_URL)
 
 

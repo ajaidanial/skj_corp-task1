@@ -8,7 +8,11 @@ from task1.settings import ADMIN_USER
 def create_super_user(apps, schema_editor):
     # create the app super user
     BaseUser.objects.create_superuser(
-        email=ADMIN_USER["email"], password=ADMIN_USER["password"],
+        email=ADMIN_USER["email"],
+        password=ADMIN_USER["password"],
+        is_email_verified=True,
+        first_name="Admin",
+        last_name="User",
     )
 
 

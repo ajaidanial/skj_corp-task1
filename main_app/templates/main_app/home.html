@@ -1,11 +1,16 @@
 {% extends 'main_app/base.html' %}
+{% load static %}
 
 {% block main_content %}
 
 <div>
     <div class="row">
         <div class="col-md-6">
+            {% if request.user.avatar %}
             <img src="{{ request.user.avatar.url }}" class="rounded img-fluid mx-auto d-block">
+            {% else %}
+            <img src="{% static 'main_app/dummy-image.png' %}" class="rounded img-fluid mx-auto d-block">
+            {% endif %}
         </div>
         <div class="col-md-6">
             <div class="row">
@@ -23,7 +28,7 @@
                 </div>
                 <div class="col-12 py-3">
                     <p class="mb-1">Date Joined</p>
-                    <h4>{{ request.user.date_joined }}</h4>
+                    <h4>{{ request.user.date_joined.date }}</h4>
                 </div>
             </div>
         </div>

@@ -17,6 +17,7 @@ class BaseUser(AbstractUser):
 
     email = models.EmailField("email address", unique=True)
     avatar = models.ImageField()
+    is_email_verified = models.BooleanField(default=False)
 
     objects = BaseUserManager()
 

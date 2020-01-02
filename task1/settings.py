@@ -4,12 +4,12 @@ import environ
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env = environ.Env()
-env.read_env(os.path.join(BASE_DIR, '.env'))
+env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Security
 # -----------------------------------------------------------------------
-SECRET_KEY = env.str('SECRET_KEY', "=rh-*z4ow74^8&f%z7$*l4rta3e2i&l)isuxdj0k%%4gq+#84u")
-DEBUG = env.bool('DEBUG', True)
+SECRET_KEY = env.str("SECRET_KEY", "=rh-*z4ow74^8&f%z7$*l4rta3e2i&l)isuxdj0k%%4gq+#84u")
+DEBUG = env.bool("DEBUG", True)
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
@@ -98,8 +98,8 @@ MEDIA_URL = "/media/"
 # -----------------------------------------------------------------------
 AUTH_USER_MODEL = "main_app.BaseUser"
 ADMIN_USER = {
-    "email": env.str('ADMIN_EMAIL_ADDRESS', "admin@admin.com"),
-    "password": env.str('ADMIN_PASSWORD', "admin"),
+    "email": env.str("ADMIN_EMAIL_ADDRESS", "admin@admin.com"),
+    "password": env.str("ADMIN_PASSWORD", "admin"),
 }
 LOGIN_URL = "/login/"
 HOME_URL = "/home/"
@@ -107,6 +107,6 @@ HOME_URL = "/home/"
 # Email Verification
 # -----------------------------------------------------------------------
 SENDER_MAIL_CREDENTIALS = {
-    "address": env.str('SENDER_EMAIL_ADDRESS', None),
-    "password": env.str('SENDER_EMAIL_PASSWORD', None),
+    "address": env.str("SENDER_EMAIL_ADDRESS", None),
+    "password": env.str("SENDER_EMAIL_PASSWORD", None),
 }

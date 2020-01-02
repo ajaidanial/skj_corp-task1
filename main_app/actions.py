@@ -1,3 +1,9 @@
+import random
+import smtplib
+import string
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import NON_FIELD_ERRORS
@@ -66,10 +72,40 @@ class SignUpAction:
     def send_verification_email(self, user):
         sender_address = settings.SENDER_MAIL_CREDENTIALS["address"]
         sender_password = settings.SENDER_MAIL_CREDENTIALS["password"]
+        link_to_revert = settings.SENDER_MAIL_CREDENTIALS["link_to_revert"]
         if sender_address and sender_password:
-            # TODO: Send verification email
-            pass
+            """Credentials are provided. Send the email."""
+            # make verification code
+            user.verification_code = self.generate_verification_code()
+            # gmail session
+            gmail_session = smtplib.SMTP("smtp.gmail.com", 587)
+            gmail_session.ehlo()
+            gmail_session.starttls()
+            gmail_session.ehlo()
+            gmail_session.login(sender_address, sender_password)
+            # message to be sent
+            message = MIMEMultipart()
+            message["From"] = sender_address
+            message["To"] = user.email
+            message["Subject"] = "Verify Your Email Address"
+            mail_body = (
+                "Hello {name},<br />"
+                "Click the link below to verify your email address.<br />"
+                "<a href='{link_to_revert}?code={code}'>Verify email.</a>"
+            ).format(
+                name=user.first_name,
+                code=user.verification_code,
+                link_to_revert=link_to_revert,
+            )
+            message.add_header("reply-to", sender_address)
+            message.attach(MIMEText(mail_body, "html"))
+            # send the email
+            gmail_session.sendmail(sender_address, user.email, message.as_string())
         else:
             # credentials are not provided
             user.is_email_verified = True
-            user.save()
+        user.save()
+
+    def generate_verification_code(self, size=10, chars=string.digits):
+        """Returns a random string of numbers based on the given `size`."""
+        return "".join(random.choice(chars) for _ in range(size))

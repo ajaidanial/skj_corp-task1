@@ -109,4 +109,7 @@ HOME_URL = "/home/"
 SENDER_MAIL_CREDENTIALS = {
     "address": env.str("SENDER_EMAIL_ADDRESS", None),
     "password": env.str("SENDER_EMAIL_PASSWORD", None),
+    "link_to_revert": env.str(
+        "EMAIL_VERIFICATION_LINK", "http://localhost:8000/verify"
+    ),
 }

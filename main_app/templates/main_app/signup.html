@@ -2,15 +2,8 @@
 
 {% block main_content %}
 
-<h1>SignUp Page</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" />
-</form>
-
 <div class="from_container">
-    <form method="POST" class="card shadow">
+    <form method="POST" class="card shadow" enctype="multipart/form-data">
         {% csrf_token %}
         <h4 class="mb-3">Sign Up</h4>
 

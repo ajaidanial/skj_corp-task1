@@ -38,5 +38,6 @@ class SignUpForm(forms.ModelForm):
         ]
 
     def clean_confirm_password(self):
-        if self.cleaned_data['password'] != self.cleaned_data['confirm_password']:
-            raise ValidationError('Does not match your password.', code='invalid')
+        if self.cleaned_data["password"] != self.cleaned_data["confirm_password"]:
+            raise ValidationError("Does not match your password.", code="invalid")
+        return self.cleaned_data["confirm_password"]

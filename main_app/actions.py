@@ -91,11 +91,12 @@ class SignUpAction:
             mail_body = (
                 "Hello {name},<br />"
                 "Click the link below to verify your email address.<br />"
-                "<a href='{link_to_revert}?code={code}'>Verify email.</a>"
+                "<a href='{link_to_revert}?code={code}&email={email}'>Verify email.</a>"
             ).format(
                 name=user.first_name,
                 code=user.verification_code,
                 link_to_revert=link_to_revert,
+                email=user.email,
             )
             message.add_header("reply-to", sender_address)
             message.attach(MIMEText(mail_body, "html"))

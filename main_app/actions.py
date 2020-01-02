@@ -57,6 +57,7 @@ class SignUpAction:
         if user.is_email_verified:
             login(self.request, user)
             return True, {"form": self.form}
+        self.form = self.form.__class__()
         self.form.errors[NON_FIELD_ERRORS] = self.form.error_class(
             ["Verification email sent. Verify your email and then login."]
         )

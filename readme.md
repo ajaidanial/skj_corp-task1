@@ -13,4 +13,5 @@ If the above command fails:
 3. `pip install -r requirements.txt`
 4. `python manage.py migrate`
 5. `python manage.py collectstatic`
-6. `python manage.py runserver`
+6. Set the proper environmental variables in `.env` file
+7. `python manage.py runserver`
